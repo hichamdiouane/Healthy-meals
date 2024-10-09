@@ -1,101 +1,124 @@
-import Image from "next/image";
+"use client"
+import { useState, useEffect } from 'react';
+import Image from 'next/image'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // const [foods, setFoods] = useState([]);
+  const [selectedFood, setSelectedFood] = useState(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+  let foods = [
+    {
+      id: 1,
+      name: "⚡️Healthy Smoothie",
+      ingredients: ["100g Oat", "banana 🍌", "1 Perly", "30g Nuts", "3 pieces black choklate", "500ml milk 🥛"],
+      macros: { protein: 41, carbs: 169, fat: 31 , Total: 1284},
+      imageUrl: "/images/Healthy_Smoothie.png"
+    },
+    {
+      id: 2,
+      name: "⚡️High Protein Sandwich",
+      ingredients: ["1 Baguette 🥖", "4 Eggs 🐣", "100g Thon 🐟", "1 Perly mssous", "4 pieces 🧀", " 30g olive 🫒"],
+      macros: { protein: 88, carbs: 97, fat: 59 , Total: 1262},
+      imageUrl: "/images/high_protein_sandwich.png"
+    },
+    {
+      id: 3,
+      name: "⚡️Bulking Smoothi",
+      ingredients: ["80g Oat ", "2 Banana 🍌", "500ml Milk 🥛", "30g Nuts 🥜", "3 Spoon 🥄 Honey 🍯", "2 Spoon 🥄 peanut butter", "30g Shea", "3 Tamrat"],
+      macros: { protein: 47, carbs: 233, fat: 55 , Total: 1577},
+      imageUrl: "/images/Bulking_Smoothi.png"
+    },
+    {
+      id: 4,
+      name: "⚡️Healty Meal",
+      ingredients: ["300g l7m 🥩 ", "400g btata 7lowa🍠", "20g zitoun🫒", "1 bsla🧅", "2 korjit 🥒",],
+      macros: { protein: 75, carbs: 80, fat: 29 , Total: 905},
+      imageUrl: "/images/Healty_Meal.png"
+    },
+    {
+      id: 5,
+      name: "⚡️2 Healty Meals",
+      ingredients: ["300g 🐓 ", "thon 🐟", "200g 🍚", "2 🐣", "1 btata 🥔", "1 khyara🥒"],
+      macros: { protein: 126, carbs: 228, fat: 19 , Total: 1627},
+      imageUrl: "/images/Healty_Meal2.png"
+    },
+    {
+      id: 6,
+      name: "🔥khobza Healthy",
+      ingredients: ["Khobza complet", "200g kefta", "2 🐣", "20g zitoun🫒 ", "1 bsla🧅",  "2 🧀"],
+      macros: { protein: 76, carbs: NaN, fat: NaN , Total: 804},
+      imageUrl: "/images/khobza_Healthy.png"
+    },
+    {
+      id: 71,
+      name: "🔥Pancakes🥞",
+      ingredients: ["100g chofan", "3 🐣", "1 🥛", "1 perly", "4 🍫",  " 2 🍌", "🥄 9arfa"],
+      macros: { protein: 49, carbs: NaN, fat: NaN , Total: 1094},
+      imageUrl: "/images/Pancakes.png"
+    },
+  ];
+
+
+  // useEffect(() => {
+  //   fetchFoods();
+  // }, []);
+
+  // const fetchFoods = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:5000/api/foods');
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch foods');
+  //     }
+  //     const data = await response.json();
+  //     setFoods(data);
+  //   } catch (error) {
+  //     console.error('Error fetching foods:', error);
+  //   }
+  // };
+
+  const handleFoodClick = (food) => {
+    setSelectedFood(food);
+  };
+
+  return (
+    <div className="container mx-auto px-4">
+      <h1 className="text-3xl font-bold my-4">Healthy Food Options</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          {foods.map((food) => (
+            <div key={food.id} className="border p-4 rounded-lg shadow mb-4 cursor-pointer" onClick={() => handleFoodClick(food)}>
+              <h2 className="text-xl font-semibold">{food.name}</h2>
+              <p>{food.macros.Total}Kcal</p>
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div>
+          {selectedFood && (
+            <div className="border p-4 rounded-lg shadow">
+              <h2 className="text-2xl font-bold mb-2">{selectedFood.name}</h2>
+              <Image
+                src={selectedFood.imageUrl}
+                alt={selectedFood.name}
+                width={200}
+                height={10}
+                className="my-3"
+              />
+              <h3 className="text-xl font-semibold mt-4">Ingredients:</h3>
+              <ul className="list-disc list-inside">
+                {selectedFood.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+              <h3 className="text-xl font-semibold mt-4">Macros:</h3>
+              <p>Protein: {selectedFood.macros.protein}g</p>
+              <p>Carbs: {selectedFood.macros.carbs}g</p>
+              <p>Fat: {selectedFood.macros.fat}g</p>
+              <p>Total: {selectedFood.macros.Total} Kcal</p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
